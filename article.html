@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title id="pageTitle">Loading…</title>
+  <style>
+    body { font-family: Georgia; max-width: 800px; margin: auto; }
+    h1 { margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+<h1 id="headline"></h1>
+<div id="content"></div>
+
+<script>
+const id = new URLSearchParams(location.search).get("id");
+
+fetch(`https://www.theindiamirror.com/_functions/news/${id}`)
+  .then(res => res.json())
+  .then(n => {
+    document.title = n.title + " | The India Mirror";
+    document.getElementById("headline").textContent = n.title;
+    document.getElementById("content").innerHTML = n.content;
+  });
+</script>
+
+</body>
+</html>
