@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>The India Mirror</title>
+  <meta charset="UTF-8">
+  <title>The India Mirror – Latest News</title>
+  <meta name="description" content="Latest breaking news from India">
+  <style>
+    body { font-family: Arial; max-width: 900px; margin: auto; }
+    article { border-bottom: 1px solid #ddd; padding: 16px 0; }
+    h2 { margin: 0; }
+    a { text-decoration: none; color: black; }
+  </style>
 </head>
 <body>
-  <h1>The India Mirror</h1>
-  <p>Site is live.</p>
+
+<h1>The India Mirror</h1>
+<div id="news"></div>
+
+<script>
+fetch("https://www.theindiamirror.com/_functions/news")
+  .then(res => res.json())
+  .then(items => {
+    const container = document.getElementById("news");
+
+    items.forEach(n => {
+      const el = document.createElement("article");
+      el.innerHTML = `
+        <h2>
+          <a href="/article.html?id=${n._id}">
+            ${n.title}
+          </a>
+        </h2>
+        <p>${n.summary || ""}</p>
+      `;
+      container.appendChild(el);
+    });
+  });
+</script>
+
 </body>
 </html>
